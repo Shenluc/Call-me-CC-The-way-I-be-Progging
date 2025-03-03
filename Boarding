@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+	char P='P';
+	int i=0; int space;
+	printf("\n------------------------------------------------\n");
+	while(i!=64){
+	switch (i){
+	case 0 ... 15: printf("| BP |");break;
+	case 16 ... 47: printf("|    |"); break;
+	case 48 ... 63: printf("| WP |"); break;	
+	}
+	i++;
+	if((i%8)==0){space=1;} 
+	if(space==1){printf("\n------------------------------------------------\n");space=0;}
+	}
+	return 0;
+}
