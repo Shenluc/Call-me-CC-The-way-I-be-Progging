@@ -1,15 +1,40 @@
 #include <stdio.h>
 #include <string.h>
 
-int main(){
-	char P='P';
+struct Piece3{
+	char Name[3];
+	int Color;
+	int Points; 
+	int Movement;
+}; 
+
+//Creation of The Bishop Piece.
+struct Piece3 Bishop[4] = {
+	{"WB", 1, 3, 3},
+	{"WB", 1, 3, 3},
+	{"BB", 0, 3, 3},
+	{"BB", 0, 3, 3}
+};
+
+struct Space{
+	char State[6];
+	int Controlled;
+	int Occupied;
+};
+
+struct Space Squares[64];
+
+void MakeSquares(struct Space Squares[64]){
+}
+
+int main(){  
 	int i=0; int space;
 	printf("\n------------------------------------------------\n");
 	while(i!=64){
 	switch (i){
-	case 0 ... 15: printf("| BP |");break;
+	case 0 ... 15: printf("| %s |", Bishop[2].Name);break;
 	case 16 ... 47: printf("|    |"); break;
-	case 48 ... 63: printf("| WP |"); break;	
+	case 48 ... 63: printf("| %s |", Bishop[0].Name); break;	
 	}
 	i++;
 	if((i%8)==0){space=1;} 
