@@ -1,44 +1,125 @@
 #include <stdio.h>
 #include <string.h>
-
-struct Piece3{
-	char Name[3];
+//Creation of the Bishop Piece
+struct Piece{
+	char Name[6];
 	int Color;
 	int Points; 
 	int Movement;
-}; 
-
-//Creation of The Bishop Piece.
-struct Piece3 Bishop[4] = {
-	{"WB", 1, 3, 3},
-	{"WB", 1, 3, 3},
-	{"BB", 0, 3, 3},
-	{"BB", 0, 3, 3}
 };
+
+struct Piece Pawn[8] = {
+	{" WP ", 1, 1, 2},
+	{" WP ", 1, 1, 2},
+	{" WP ", 1, 1, 2},
+	{" WP ", 1, 1, 2},
+	{" BP ", 0, 1, 2},
+	{" BP ", 0, 1, 2},
+	{" BP ", 0, 1, 2},
+	{" BP ", 0, 1, 2}
+};
+
+struct Piece Knight[4] = {
+	{" WH ", 1, 3, 2},
+	{" WH ", 1, 3, 2},
+	{" BH ", 0, 3, 2},
+	{" BH ", 0, 3, 2}
+};
+	
+struct Piece Bishop[4] = {
+	{" WB ", 1, 3, 3},
+	{" WB ", 1, 3, 3},
+	{" BB ", 0, 3, 3},
+	{" BB ", 0, 3, 3}
+};
+
+struct Piece Rook[4] = {
+	{" WR ", 1, 5, 4},
+	{" WR ", 1, 5, 4},
+	{" BR ", 0, 5, 4},
+	{" BR ", 0, 5, 4}
+};
+
+struct Piece Queen[2] = {
+	{" WQ ", 1, 9, 5},
+	{" BQ ", 0, 9, 5}
+};
+
+struct Piece King[2] = {
+	{" WK ", 1, 9, 6},
+	{" BK ", 0, 9, 6}
+};
+
+/*Creation of the Board
+If Occupied by a White Piece = 1; if Occupied by Black Piece = 2; None = 3
+Same with Controlled. 
+State is the State of the Board, will print nothing unless there's a piece there.
+*/
 
 struct Space{
 	char State[6];
 	int Controlled;
-	int Occupied;
-};
+	int Occupied; 
+} ;
 
-struct Space Squares[64];
-
-void MakeSquares(struct Space Squares[64]){
+void MakeSquares(struct Space Squares[]){
+	int i=0; 
+	while (i!=64){
+	  switch (i){
+	  case 0 ... 15: Squares[i].Occupied=2;Squares[i].Controlled=2;break;
+	  case 16 ... 31: Squares[i].Occupied=0;Squares[i].Controlled=2;strcpy(Squares[i].State, "    ");break;
+	  case 32 ... 47: Squares[i].Occupied=0;Squares[i].Controlled=1;strcpy(Squares[i].State, "    ");break;
+	  case 48 ... 63: Squares[i].Occupied=1;Squares[i].Controlled=1;break; 
+	}
+	i++;
+	}
+	
 }
 
 int main(){  
+
+	struct Space Squares[64];
 	int i=0; int space;
 	printf("\n------------------------------------------------\n");
+	MakeSquares(Squares); //initializes the squares.
+	
 	while(i!=64){
 	switch (i){
-	case 0 ... 15: printf("| %s |", Bishop[2].Name);break;
-	case 16 ... 47: printf("|    |"); break;
-	case 48 ... 63: printf("| %s |", Bishop[0].Name); break;	
+		
+	case 0 ... 7: 
+	
+	if((i==0)||(i==7)){printf("|%s|", Rook[2].Name);}
+	else if((i==1)||(i==6)){printf("|%s|", Knight[2].Name);}
+	else if ((i==2)||(i==5)){printf("|%s|", Bishop[2].Name);}
+	else if (i==3){printf("|%s|", Queen[1].Name);}
+	else if (i==4){printf("|%s|", King[1].Name);}
+	
+	break;
+	
+	case 8 ... 15: printf("|%s|", Pawn[5].Name); 
+	break;
+	
+	case 16 ... 47: printf("|%s|", Squares[i].State); 
+	break;
+	
+	case 48 ... 55: printf("|%s|", Pawn[0].Name); 
+	break;
+	
+	case 56 ... 63: 
+	
+	if((i==56)||(i==63)){printf("|%s|", Rook[0].Name);}
+	else if((i==57)||(i==62)){printf("|%s|", Knight[0].Name);}
+	else if ((i==58)||(i==61)){printf("|%s|", Bishop[0].Name);}
+	else if (i==59){printf("|%s|", Queen[0].Name);}
+	else if (i==60){printf("|%s|", King[0].Name);}
+	
+	break;
 	}
 	i++;
 	if((i%8)==0){space=1;} 
 	if(space==1){printf("\n------------------------------------------------\n");space=0;}
 	}
+	
+	
 	return 0;
 }
